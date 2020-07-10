@@ -39,7 +39,6 @@ class Game {
 
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
-    console.log(top);
     let handleClickInstance = this;
     // let thisHandleClick = handleClick.bind(this)
     // this.top = document.createElement('tr');
@@ -47,8 +46,8 @@ class Game {
     // top.addEventListener('click', this.handleClick.bind(handleClickInstance));
 
     for (let x = 0; x < this.width; x++) {
-      // const headCell = document.createElement('td');
-      this.headCell = document.createElement('td');
+      const headCell = document.createElement('td');
+      // this.headCell = document.createElement('td');
       headCell.setAttribute('id', x);
       top.append(headCell);
     }
@@ -58,12 +57,12 @@ class Game {
 
     // make main part of board
     for (let y = 0; y < this.height; y++) {
-      // const row = document.createElement('tr');
-      this.row = document.createElement('tr');
+      const row = document.createElement('tr');
+      // this.row = document.createElement('tr');
 
       for (let x = 0; x < this.width; x++) {
-        // const cell = document.createElement('td');
-        this.cell = document.createElement('td');
+        const cell = document.createElement('td');
+        // this.cell = document.createElement('td');
         //add this to cell and & row below
         cell.setAttribute('id', `${y}-${x}`);
         row.append(cell);
@@ -173,7 +172,7 @@ class Game {
 let newBoard = new Game();
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
-newBoard
+newBoard.makeHtmlBoard();
 
 
 // /** Connect Four
