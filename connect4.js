@@ -1,3 +1,4 @@
+"use strict"
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
@@ -6,38 +7,30 @@
  */
 
 
+
 class Game {
   //constructor height, width, maybe board
-  constructor(height = 6, width = 7) {
+    constructor(height = 6, width = 7) {
     this.height = height;
     this.width = width;
-    // Question: do js hoisting rule apply within classes? 
-      // Do we need to declare this key within this block?
-    // works and now needs more rows
+    // create a 2D array to track player piece
+    // board = array of rows, each row is array of cells  (board[y][x])
     this.board = Array(this.heigth).fill(null).map(() => Array(this.width).fill(null));
-
-    // this.testingArray = new Array.from(height, width).fill(null)
-    this.testingArray2 = [];
     this.currPlayer = 1;
-    // board(height, width) //let board = []
-    // new Game(7,6) //[[],[]]
-
-    //take care of current player here:
-    // let currPlayer = 1; // active player: 1 or 2
-
   }
-  // this.testingArray = new.Array(height, width).fill(null)
 
+  /** Board constructed within the constructor methods */
   /** makeBoard: create in-JS board structure:
   *   board = array of rows, each row is array of cells  (board[y][x])
   */
-  makeBoard() {
-    // this.board = [];
-    for (let y = 0; y < this.height; y++) {
-      // need to debug syntax
-      this.board.push(Array.from({ length: this.width }))
-    }
-  }
+  // makeBoard() {
+  //   // this.board = [];
+  //   for (let y = 0; y < this.height; y++) {
+  //     // need to debug syntax
+  //     this.board.push(Array.from({ length: this.width }))
+  //   }
+  // }
+
   /** makeHtmlBoard: make HTML table and row of column tops. */
   makeHtmlBoard() {
     //it is posssible to interact with Dom w/in the class =QUESTION!!
@@ -45,10 +38,13 @@ class Game {
     // this.board = document.getElementById('board');
 
     // make column tops (clickable area for adding a piece to that column)
-    // const top = document.createElement('tr');
-    this.top = document.createElement('tr');
+    const top = document.createElement('tr');
+    console.log(top);
+    let handleClickInstance = this;
+    // let thisHandleClick = handleClick.bind(this)
+    // this.top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
-    top.addEventListener('click', handleClick);
+    // top.addEventListener('click', this.handleClick.bind(handleClickInstance));
 
     for (let x = 0; x < this.width; x++) {
       // const headCell = document.createElement('td');
@@ -176,7 +172,7 @@ class Game {
 
 let newBoard = new Game();
 // new makeHtmlBoard();
-console.log(newBoard.testingArray2, newBoard.board);
+// console.log(newBoard.makeHTMLBoard().top);
 newBoard
 
 
