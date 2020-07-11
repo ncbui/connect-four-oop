@@ -10,53 +10,50 @@
 
 class Game {
   //constructor height, width, maybe board
-  constructor(height = 6, width = 7) {
+    constructor(height = 6, width = 7) {
     this.height = height;
     this.width = width;
     // create a 2D array to track player piece
     // board = array of rows, each row is array of cells  (board[y][x])
     this.board = Array(this.heigth).fill(null).map(() => Array(this.width).fill(null));
-    // this.board2 = this.makeArrayBoard();
-    // this.board3 = this.makeArrayBoard(this.width,this.height);
     this.currPlayer = 1;
   }
 
   /** Board constructed within the constructor methods */
-  /** makeArrayBoard: create in-JS board structure:
+  /** makeBoard: create in-JS board structure:
   *   board = array of rows, each row is array of cells  (board[y][x])
   */
-  makeArrayBoard(width, height) {
-    // function makeBoard() {
-//   for (let y = 0; y < HEIGHT; y++) {
-//     board.push(Array.from({ length: WIDTH }));
-//   }
-// }
-    for (let y = 0; y < height; y++) {
-      // need to debug syntax
-      this.board.push(Array.from({ length: width }))
-    }
-    // console.log(this.board);
-  }
+  // makeBoard() {
+  //   // this.board = [];
+  //   for (let y = 0; y < this.height; y++) {
+  //     // need to debug syntax
+  //     this.board.push(Array.from({ length: this.width }))
+  //   }
+  // }
 
   /** makeHtmlBoard: make HTML table and row of column tops. */
   makeHtmlBoard() {
     //it is posssible to interact with Dom w/in the class =QUESTION!!
-    const htmlBoard = document.getElementById('html-board');
+    const htmlBoard = document.getElementById('board');
+    // this.board = document.getElementById('board');
 
     // make column tops (clickable area for adding a piece to that column)
-    const htmlTop = document.createElement('tr');
+    const top = document.createElement('tr');
     let handleClickInstance = this;
-    // let thisHandleClick = handleClick.bind(this);
-    htmlTop.setAttribute('id', 'column-top');
-    htmlTop.addEventListener('click', this.handleClick.bind(handleClickInstance));
+    // let thisHandleClick = handleClick.bind(this)
+    // this.top = document.createElement('tr');
+    top.setAttribute('id', 'column-top');
+    // top.addEventListener('click', this.handleClick.bind(handleClickInstance));
 
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
+      // this.headCell = document.createElement('td');
       headCell.setAttribute('id', x);
-      htmlTop.append(headCell);
+      top.append(headCell);
     }
 
-    htmlBoard.append(htmlTop);
+    htmlBoard.append(top);
+    // board.append(top);
 
     // make main part of board
     for (let y = 0; y < this.height; y++) {
@@ -75,31 +72,26 @@ class Game {
     }
   }
 
-  /** findSpotForCol: given column x (passed in from handleClick), return top empty y (null if filled) */
+  /** findSpotForCol: given column x, return top empty y (null if filled) */
   findSpotForCol(x) {
-    console.log("this outside", this)
     for (let y = this.height - 1; y >= 0; y--) {
-      this.board[y][x]
-      console.log("this inside", this, "this.board", this.board, "this.board[y][x]", this.board[1])
-      console.log("y", y, "this.x: ", this.x)
-      if (!this.board[y][x]) {
+      //this.board[y][x]
+      if (!board[y][x]) {
         return y;
       }
     }
-    // Joel says: figureout what this is
     return null;
   }
 
   /** placeInTable: update DOM to place piece into HTML table of board */
-  // receive arguments from
   placeInTable(y, x) {
-    const piece = document.createElement('div');
-    piece.classList.add('piece');
-    piece.classList.add(`p${this.currPlayer}`); //  question!
-    piece.style.top = -50 * (y + 2);
+  const piece = document.createElement('div');
+  piece.classList.add('piece');
+  piece.classList.add(`p${this.currPlayer}`); //  question!
+  piece.style.top = -50 * (y + 2);
 
-    const spot = document.getElementById(`${y}-${x}`);
-    spot.append(piece);
+  const spot = document.getElementById(`${y}-${x}`);
+  spot.append(piece);
   }
 
   /** endGame: announce game end */
@@ -107,14 +99,14 @@ class Game {
     alert(msg);
   }
 
-  /** handleClick: handle click of column htmlTop to play piece */
+  /** handleClick: handle click of column top to play piece */
 
   handleClick(evt) {
     // get x from ID of clicked cell
     const x = +evt.target.id;
 
     // get next spot in column (if none, ignore click)
-    const y = this.findSpotForCol(x);
+    const y = findSpotForCol(x);
     if (y === null) {
       return;
     }
@@ -142,7 +134,7 @@ class Game {
   // the same class
   /** checkForWin: check board cell-by-cell for "does a win start here?" */
   checkForWin() {
-    function _win(cells) { //static?
+      function _win(cells) { //static?
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
       //  - returns true if all are legal coordinates & all match currPlayer
@@ -179,5 +171,5 @@ class Game {
 
 let newBoard = new Game();
 // new makeHtmlBoard();
-console.log("board1:", newBoard.board, "board2: ", newBoard.board2);
+// console.log(newBoard.makeHTMLBoard().top);
 newBoard.makeHtmlBoard();
