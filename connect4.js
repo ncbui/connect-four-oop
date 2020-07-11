@@ -117,17 +117,27 @@ class Game {
     // TODO: Add timeout
     // check for win
     if (this.checkForWin()) {
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      // return this.endGame(`Player ${this.currPlayer} won!`);
+      setTimeout(() => {
+        this.endGame(`Player ${this.currPlayer} won!`);
+      }, 10);
     }
 
     // TODO: Add timeout
     // check for tie
     if (this.arrayBoard.every(row => row.every(cell => cell))) {
-      return this.endGame('Tie!');
+      // return this.endGame('Tie!');
+      setTimeout(() => {
+        this.endGame('Tie!');
+      }, 10);
     }
 
+    // TODO: Add timeout
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    setTimeout(() => {
+      this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    }, 20);
+
 
   }
    _win(cells) {
