@@ -10,7 +10,7 @@
 
 class Game {
   //constructor height, width, maybe board
-    constructor(height = 6, width = 7) {
+  constructor(height = 6, width = 7) {
     this.height = height;
     this.width = width;
     // create a 2D array to track player piece
@@ -40,10 +40,10 @@ class Game {
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
     let handleClickInstance = this;
-    // let thisHandleClick = handleClick.bind(this)
+    // let thisHandleClick = handleClick.bind(this);
     // this.top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
-    // top.addEventListener('click', this.handleClick.bind(handleClickInstance));
+    top.addEventListener('click', this.handleClick.bind(handleClickInstance));
 
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
@@ -76,7 +76,7 @@ class Game {
   findSpotForCol(x) {
     for (let y = this.height - 1; y >= 0; y--) {
       //this.board[y][x]
-      if (!board[y][x]) {
+      if (!this.board[y][x]) {
         return y;
       }
     }
@@ -85,13 +85,13 @@ class Game {
 
   /** placeInTable: update DOM to place piece into HTML table of board */
   placeInTable(y, x) {
-  const piece = document.createElement('div');
-  piece.classList.add('piece');
-  piece.classList.add(`p${this.currPlayer}`); //  question!
-  piece.style.top = -50 * (y + 2);
+    const piece = document.createElement('div');
+    piece.classList.add('piece');
+    piece.classList.add(`p${this.currPlayer}`); //  question!
+    piece.style.top = -50 * (y + 2);
 
-  const spot = document.getElementById(`${y}-${x}`);
-  spot.append(piece);
+    const spot = document.getElementById(`${y}-${x}`);
+    spot.append(piece);
   }
 
   /** endGame: announce game end */
@@ -134,7 +134,7 @@ class Game {
   // the same class
   /** checkForWin: check board cell-by-cell for "does a win start here?" */
   checkForWin() {
-      function _win(cells) { //static?
+    function _win(cells) { //static?
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
       //  - returns true if all are legal coordinates & all match currPlayer
@@ -173,7 +173,6 @@ let newBoard = new Game();
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
 newBoard.makeHtmlBoard();
-
 
 // /** Connect Four
 //  *
