@@ -122,11 +122,12 @@ class Game {
       return this.endGame(`Player ${this.currPlayer} won!`);
     }
 
-    // // check for tie
-    // if (this.arrayBoard.every(row => row.every(cell => cell))) {
-    //   return this.endGame('Tie!');
-    // }
-
+    // check for tie
+    if (this.arrayBoard.every(row => row.every(cell => cell))) {
+      return this.endGame('Tie!');
+    }
+    // switch players
+    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
 
   }
    _win(cells) { //static?
