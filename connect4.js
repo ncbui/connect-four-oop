@@ -13,9 +13,6 @@ class Game {
     constructor(height = 6, width = 7) {
     this.height = height;
     this.width = width;
-    // create a 2D array to track player piece
-    // board = array of rows, each row is array of cells  (board[y][x])
-    // this.arrayBoard = Array(this.heigth).fill(null).map(() => Array(this.width).fill(null));
     this.currPlayer = 1;
   }
 
