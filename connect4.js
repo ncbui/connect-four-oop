@@ -41,7 +41,7 @@ class Game {
     // let thisHandleClick = handleClick.bind(this)
     // this.top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
-    // top.addEventListener('click', this.handleClick.bind(handleClickInstance));
+    top.addEventListener('click', this.handleClick.bind(handleClickInstance));
 
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
@@ -74,7 +74,7 @@ class Game {
   findSpotForCol(x) {
     for (let y = this.height - 1; y >= 0; y--) {
       //this.board[y][x]
-      if (!arrayBoard[y][x]) {
+      if (!this.arrayBoard[y][x]) {
         return y;
       }
     }
@@ -104,23 +104,23 @@ class Game {
     const x = +evt.target.id;
 
     // get next spot in column (if none, ignore click)
-    const y = findSpotForCol(x);
+    const y = this.findSpotForCol(x);
     if (y === null) {
       return;
     }
 
     // place piece in arrayBoard and add to HTML table
     this.arrayBoard[y][x] = this.currPlayer;
-    placeInTable(y, x);
+    this.placeInTable(y, x);
 
     // check for win
-    if (checkForWin()) {
-      return endGame(`Player ${this.currPlayer} won!`);
+    if (this.checkForWin()) {
+      return this.endGame(`Player ${this.currPlayer} won!`);
     }
 
     // check for tie
     if (this.arrayBoard.every(row => row.every(cell => cell))) {
-      return endGame('Tie!');
+      return this.endGame('Tie!');
     }
 
     // switch players
