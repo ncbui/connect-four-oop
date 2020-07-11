@@ -15,21 +15,22 @@ class Game {
     this.width = width;
     // create a 2D array to track player piece
     // board = array of rows, each row is array of cells  (board[y][x])
-    this.board = Array(this.heigth).fill(null).map(() => Array(this.width).fill(null));
+    // this.arrayBoard = Array(this.heigth).fill(null).map(() => Array(this.width).fill(null));
     this.currPlayer = 1;
   }
 
   /** Board constructed within the constructor methods */
   /** makeBoard: create in-JS board structure:
-  *   board = array of rows, each row is array of cells  (board[y][x])
+  *   arrayBoard = array of rows, each row is array of cells  (arrayBoard[y][x])
   */
-  // makeBoard() {
-  //   // this.board = [];
-  //   for (let y = 0; y < this.height; y++) {
-  //     // need to debug syntax
-  //     this.board.push(Array.from({ length: this.width }))
-  //   }
-  // }
+  makeArrayBoard() {
+    
+    this.arrayBoard = [];
+    for (let y = 0; y < this.height; y++) {
+      // need to debug syntax
+      this.arrayBoard.push(Array.from({ length: this.width }))
+    }
+  }
 
   /** makeHtmlBoard: make HTML table and row of column tops. */
   makeHtmlBoard() {
@@ -76,7 +77,7 @@ class Game {
   findSpotForCol(x) {
     for (let y = this.height - 1; y >= 0; y--) {
       //this.board[y][x]
-      if (!board[y][x]) {
+      if (!arrayBoard[y][x]) {
         return y;
       }
     }
@@ -111,8 +112,8 @@ class Game {
       return;
     }
 
-    // place piece in board and add to HTML table
-    this.board[y][x] = this.currPlayer;
+    // place piece in arrayBoard and add to HTML table
+    this.arrayBoard[y][x] = this.currPlayer;
     placeInTable(y, x);
 
     // check for win
@@ -121,7 +122,7 @@ class Game {
     }
 
     // check for tie
-    if (this.board.every(row => row.every(cell => cell))) {
+    if (this.arrayBoard.every(row => row.every(cell => cell))) {
       return endGame('Tie!');
     }
 
@@ -132,7 +133,7 @@ class Game {
   //Question: 
   // best practice for creating helper fuction to be a difference method within
   // the same class
-  /** checkForWin: check board cell-by-cell for "does a win start here?" */
+  /** checkForWin: check arrayBoard cell-by-cell for "does a win start here?" */
   checkForWin() {
       function _win(cells) { //static?
       // Check four cells to see if they're all color of current player
@@ -145,7 +146,7 @@ class Game {
           y < this.height &&
           x >= 0 &&
           x < this.width &&
-          this.board[y][x] === this.currPlayer
+          this.arrayBoard[y][x] === this.currPlayer
       );
     }
 
@@ -173,3 +174,5 @@ let newBoard = new Game();
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
 newBoard.makeHtmlBoard();
+newBoard.makeArrayBoard();
+console.log(newBoard.arrayBoard)
