@@ -14,6 +14,8 @@ class Game {
     this.height = height;
     this.width = width;
     this.currPlayer = 1;
+    this.makeHtmlBoard();
+    this.makeArrayBoard();
   }
 
   /** Board constructed within the constructor methods */
@@ -183,6 +185,6 @@ class Game {
 let newBoard = new Game();
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
-newBoard.makeHtmlBoard();
-newBoard.makeArrayBoard();
+// newBoard.makeHtmlBoard();
+// newBoard.makeArrayBoard();
 // console.log(newBoard.arrayBoard)
