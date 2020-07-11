@@ -10,14 +10,14 @@
 
 class Game {
   //constructor height, width, maybe board
-    constructor(height = 6, width = 7) {
+    constructor(height = 4, width = 4) {
     this.height = height;
     this.width = width;
     this.currPlayer = 1;
   }
 
   /** Board constructed within the constructor methods */
-  /** makeBoard: create in-JS board structure:
+  /** makeBoard: create in-JS board structure called arrayBoard:
   *   arrayBoard = array of rows, each row is array of cells  (arrayBoard[y][x])
   */
   makeArrayBoard() {
@@ -112,40 +112,44 @@ class Game {
     // place piece in arrayBoard and add to HTML table
     this.arrayBoard[y][x] = this.currPlayer;
     this.placeInTable(y, x);
+    // console.log("arrayBoard has updated at", y,x, this.arrayBoard)
+
+    // switch players
+    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
 
     // check for win
     if (this.checkForWin()) {
       return this.endGame(`Player ${this.currPlayer} won!`);
     }
 
-    // check for tie
-    if (this.arrayBoard.every(row => row.every(cell => cell))) {
-      return this.endGame('Tie!');
-    }
+    // // check for tie
+    // if (this.arrayBoard.every(row => row.every(cell => cell))) {
+    //   return this.endGame('Tie!');
+    // }
 
-    // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+
   }
-
+   _win(cells) { //static?
+    // Check four cells to see if they're all color of current player
+    //  - cells: list of four (y, x) cells
+    //  - returns true if all are legal coordinates & all match currPlayer
+    // console.log("within _win(), this is: ", this)
+    return cells.every(
+      ([y, x]) =>
+        y >= 0 &&
+        y < this.height &&
+        x >= 0 &&
+        x < this.width &&
+        this.arrayBoard[y][x] === this.currPlayer
+    );
+  }
   //Question: 
   // best practice for creating helper fuction to be a difference method within
   // the same class
   /** checkForWin: check arrayBoard cell-by-cell for "does a win start here?" */
   checkForWin() {
-      function _win(cells) { //static?
-      // Check four cells to see if they're all color of current player
-      //  - cells: list of four (y, x) cells
-      //  - returns true if all are legal coordinates & all match currPlayer
+    // console.log("within checkforwin(), this is: ", this, this.arrayBoard)
 
-      return cells.every(
-        ([y, x]) =>
-          y >= 0 &&
-          y < this.height &&
-          x >= 0 &&
-          x < this.width &&
-          this.arrayBoard[y][x] === this.currPlayer
-      );
-    }
 
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
@@ -157,7 +161,7 @@ class Game {
         const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
         // find winner (only checking each win-possibility as needed)
-        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        if (this._win(horiz) || this._win(vert) || this._win(diagDR) || this._win(diagDL)) {
           return true;
         }
       }
@@ -172,4 +176,4 @@ let newBoard = new Game();
 // console.log(newBoard.makeHTMLBoard().top);
 newBoard.makeHtmlBoard();
 newBoard.makeArrayBoard();
-console.log(newBoard.arrayBoard)
+// console.log(newBoard.arrayBoard)
