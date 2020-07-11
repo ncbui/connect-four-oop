@@ -10,7 +10,7 @@
 
 class Game {
   //constructor height, width, maybe board
-    constructor(height = 4, width = 4) {
+    constructor(height = 6, width = 7) {
     this.height = height;
     this.width = width;
     this.currPlayer = 1;
@@ -182,7 +182,7 @@ class Game {
 };
 
 
-let newBoard = new Game();
+let newBoard = new Game(6, 7);
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
 // newBoard.makeHtmlBoard();
