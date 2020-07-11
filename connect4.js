@@ -114,23 +114,23 @@ class Game {
     this.placeInTable(y, x);
     // console.log("arrayBoard has updated at", y,x, this.arrayBoard)
 
-    // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
-
+    // TODO: Add timeout
     // check for win
     if (this.checkForWin()) {
       return this.endGame(`Player ${this.currPlayer} won!`);
     }
 
+    // TODO: Add timeout
     // check for tie
     if (this.arrayBoard.every(row => row.every(cell => cell))) {
       return this.endGame('Tie!');
     }
+
     // switch players
     this.currPlayer = this.currPlayer === 1 ? 2 : 1;
 
   }
-   _win(cells) { //static?
+   _win(cells) {
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
@@ -150,8 +150,6 @@ class Game {
   /** checkForWin: check arrayBoard cell-by-cell for "does a win start here?" */
   checkForWin() {
     // console.log("within checkforwin(), this is: ", this, this.arrayBoard)
-
-
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         // get "check list" of 4 cells (starting here) for each of the different
