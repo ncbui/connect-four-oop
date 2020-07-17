@@ -172,6 +172,14 @@ class Game {
 };
 
 
+class Player{
+  // Initialize all player instances with color property.
+  constructor(color){
+    this.color = color;
+  }
+}
+
+
 let newBoard = new Game(6, 7);
 // new makeHtmlBoard();
 // console.log(newBoard.makeHTMLBoard().top);
